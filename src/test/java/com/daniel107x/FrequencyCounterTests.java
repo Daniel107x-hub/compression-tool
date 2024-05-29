@@ -1,7 +1,10 @@
 package com.daniel107x;
 
+import com.daniel107x.reader.FileReader;
+import com.daniel107x.reader.IFileReader;
 import com.daniel107x.utils.FrequencyCounter;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -85,5 +88,14 @@ public class FrequencyCounterTests {
         expected.put('a', 1000);
         expected.put('b', 1000);
         Assertions.assertEquals(expected, frequencyCounter.countFrequency(testInputStream));
+    }
+
+    @Test
+    @DisplayName("Counts known frequencies from file")
+    public void testCountFromFile() throws IOException {
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("LesMiserables.txt");
+        Map<Character, Integer> resultMap = frequencyCounter.countFrequency(inputStream);
+        Assertions.assertEquals(333, resultMap.get('X'));
+        Assertions.assertEquals(223000, resultMap.get('t'));
     }
 }

@@ -7,8 +7,8 @@ import java.nio.file.Paths;
 
 public class FileReader implements IFileReader{
     public InputStream openFile(String fileName){
-        try (InputStream file = Files.newInputStream(Paths.get(fileName))){
-            return file;
+        try {
+            return Files.newInputStream(Paths.get(fileName));
         }catch(IOException exception){
             System.out.println("Unable to open file");
             return null;
